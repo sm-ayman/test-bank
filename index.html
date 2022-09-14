@@ -39,7 +39,7 @@
             <div class="col-md-4 ">
                 <div class="withdraw  status">
                     <h5>Withdraw</h5>
-                    <h2>$00</h2>
+                    <h2>$ <span id="currentWithdraw">00</span></h2>
                 </div>
             </div>
             <div class="col-md-4 ">
@@ -62,7 +62,8 @@
             <div class="col-md-6">
                 <div class="submit-area">
                     <h4>Withdraw</h4>
-                    <input type="text" id="withdrawAmount" class="form-control" placeholder="$ amount you want to withdraw">
+                    <input type="text" id="withdrawAmount" class="form-control"
+                        placeholder="$ amount you want to withdraw">
                     <br>
                     <button id="addWithdraw" class="btn btn-success">Withdraw</button>
                 </div>
@@ -91,31 +92,36 @@
             // const totalDeposit = depositNumber + currentDepositNumber;
             // document.getElementById('currentDeposit').innerText = totalDeposit;
 
-            updateSpanText('currentBalance',depositNumber);
+            updateSpanText('currentBalance', depositNumber);
             // const currentBalance = document.getElementById('currentBalance').innerText;
             // const currentBalanceNumber = parseFloat(currentBalance);
             // const totalBalance = depositNumber + currentBalanceNumber;
             // document.getElementById('currentBalance').innerText = totalBalance;
 
-                document.getElementById('depositAmount').value = "";
+            document.getElementById('depositAmount').value = "";
         })
 
-        
+
         //withdraw button event handler
         const withdrawBtn = document.getElementById('addWithdraw');
         withdrawBtn.addEventListener('click', function () {
-          const withdrawNumber = getInputNumber('withdrawAmount');
-          console.log(withdrawNumber);
+            const withdrawNumber = getInputNumber('withdrawAmount');
+
+            updateSpanText('currentWithdraw', withdrawNumber);
+            updateSpanText('currentBalance',   -1 * withdrawNumber )
+
+            document.getElementById('withdrawAmount').value = "";
+
         })
 
-        function getInputNumber(id){
+        function getInputNumber(id) {
             const amount = document.getElementById(id).value;
             const amountNumber = parseFloat(amount);
             return amountNumber;
         }
 
-
-        function updateSpanText(id,depositNumber){
+        // upadate span text function
+        function updateSpanText(id, depositNumber) {
             const current = document.getElementById(id).innerText;
             const currentNumber = parseFloat(current);
             const totalAmount = depositNumber + currentNumber;
